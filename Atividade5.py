@@ -31,7 +31,11 @@ db = FAISS.from_documents(texts, OllamaEmbeddings(model="mxbai-embed-large"))
 
 query = "Qual o tema do texto?"
 docs = db.similarity_search(query)
+
+# RESPOSTA BASEADA EM BUSCA POR SIMILIARIDADE
 #print(docs[0].page_content)
+
+
 
 # CRIANDO O MODELO LLM
 model = OllamaLLM(model="llama3.2:latest")
@@ -42,4 +46,6 @@ retriever = db.as_retriever(search_kwargs={"k": 5})
 qa_chain = RetrievalQA.from_chain_type(llm=model, retriever=retriever, chain_type="stuff")
 
 response = qa_chain.invoke(query)
+
+# RESPOSTA RETRIEVAL
 print("QA Response:", response)
