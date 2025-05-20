@@ -36,6 +36,7 @@ docs = db.similarity_search(query)
 # CRIANDO O MODELO LLM
 model = OllamaLLM(model="llama3.2:latest")
 
+# CRIAÇÃO DO RETRIEVER UTILIZANDO A BASE DE DADO VETORIAL
 retriever = db.as_retriever(search_kwargs={"k": 5})
 
 qa_chain = RetrievalQA.from_chain_type(llm=model, retriever=retriever, chain_type="stuff")
